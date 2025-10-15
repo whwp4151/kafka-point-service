@@ -1,11 +1,11 @@
-package com.example.kafka_point_service
+package com.example.pointapiservice
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class KafkaPointServiceApplication
+class PointApiServiceApplication
 
 fun main(args: Array<String>) {
-	runApplication<KafkaPointServiceApplication>(*args)
+    runApplication<PointApiServiceApplication>(*args)
 }
