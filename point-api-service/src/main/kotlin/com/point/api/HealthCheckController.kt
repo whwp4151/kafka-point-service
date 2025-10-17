@@ -1,4 +1,4 @@
-package com.example.pointapiservice
+package com.point.api
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

@@ -1,11 +1,11 @@
-package com.example.pointapiservice
+package com.point.connector
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class PointApiServiceApplication
+class PointConnectorServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<PointApiServiceApplication>(*args)
+    runApplication<PointConnectorServiceApplication>(*args)
 }

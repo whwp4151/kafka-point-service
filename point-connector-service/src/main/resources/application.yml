@@ -1,0 +1,9 @@
+server:
+  port: 10002
+  tomcat:
+    uri-encoding: UTF-8
+  shutdown: graceful
+
+spring:
+  application:
+    name: point-connector-service
