@@ -1,11 +1,11 @@
-package com.point.connector
+package com.sadik.pointapi
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class PointConnectorServiceApplication
+class PointApiServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<PointConnectorServiceApplication>(*args)
+    runApplication<PointApiServiceApplication>(*args)
 }

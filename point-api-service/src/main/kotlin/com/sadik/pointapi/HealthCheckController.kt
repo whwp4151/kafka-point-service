@@ -1,4 +1,4 @@
-package com.point.connector
+package com.sadik.pointapi
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

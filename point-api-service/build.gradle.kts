@@ -7,5 +7,6 @@ bootJar.enabled = false
 jar.enabled = true
 
 dependencies {
+    // kafka
     implementation("org.springframework.kafka:spring-kafka")
 }
