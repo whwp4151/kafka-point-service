@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 class KafkaHealthController(
     private val kafkaAdminClient: AdminClient
 ) {
-    @GetMapping("/health/kafka")
+    @GetMapping("/api/health/kafka")
     fun checkKafka(): Map<String, Any> {
         return try {
             val nodes = kafkaAdminClient.describeCluster().nodes().get()
