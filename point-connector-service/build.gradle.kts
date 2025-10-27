@@ -13,4 +13,7 @@ dependencies {
 
     // kafka
     implementation("org.springframework.kafka:spring-kafka")
+
+    // uuid
+    implementation("com.github.f4b6a3:uuid-creator:6.1.0")
 }

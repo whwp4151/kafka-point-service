@@ -1,4 +1,4 @@
-package com.sadik.pointapi.common.jpa
+package com.sadik.pointconnect.common.jpa
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners

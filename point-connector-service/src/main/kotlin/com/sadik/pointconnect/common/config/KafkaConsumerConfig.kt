@@ -1,4 +1,4 @@
-package com.sadik.pointconnect.config
+package com.sadik.pointconnect.common.config
 
 import com.sadik.pointconnect.point.application.dto.PointEventDto
 import org.apache.kafka.clients.admin.AdminClient

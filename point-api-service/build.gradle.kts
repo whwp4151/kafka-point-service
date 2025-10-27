@@ -16,4 +16,7 @@ dependencies {
 
     // swagger
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13")
+
+    // uuid
+    implementation("com.github.f4b6a3:uuid-creator:6.1.0")
 }

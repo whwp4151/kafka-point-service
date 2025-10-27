@@ -1,8 +1,8 @@
-package com.sadik.pointconnect.point.infrastructure.jpa
+package com.sadik.pointapi.point.infrastructure
 
-import com.sadik.pointconnect.common.jpa.BaseEntity
-import com.sadik.pointconnect.point.application.type.PointActionType
-import com.sadik.pointconnect.point.application.type.PointType
+import com.sadik.pointapi.common.jpa.BaseEntity
+import com.sadik.pointapi.point.application.type.PointActionType
+import com.sadik.pointapi.point.application.type.PointType
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated

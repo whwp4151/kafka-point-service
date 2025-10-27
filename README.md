@@ -72,3 +72,51 @@
 ### `/api/point/history`
 
 - 포인트 적립/사용 내역 리스트 조회
+
+---
+
+## 아키텍처 설계
+
+본 프로젝트는 **헥사고날 아키텍처(Hexagonal Architecture)** 기반으로 설계되었습니다.
+
+비즈니스 로직을 중심으로 외부 입출력(Controller, Kafka, DB)을 독립시켜,
+
+테스트 용이성과 유지보수성을 높이는 구조입니다.
+
+---
+
+### User 도메인 패키지 구조
+
+```
+user
+├── application
+│   ├── adapter
+│   │   └── UserAdapter.kt
+│   ├── service
+│   │   └── UserService.kt
+│   └── usecase
+│       └── UserUseCase.kt
+├── controller
+│   ├── AuthController.kt
+│   └── dto
+│       └── UserJoinRequestDto.kt
+└── infrastructure
+    ├── UserRepository.kt
+    └── jpa
+        ├── UserEntity.kt
+        └── UserJpaRepository.kt
+
+```
+
+---
+
+### 계층별 역할 설명
+
+| 계층 | 설명 |
+| --- | --- |
+| **controller** | 외부 요청(HTTP)을 수신하는 API 계층입니다. DTO를 통해 요청/응답을 처리하며, 비즈니스 로직은 포함하지 않습니다. |
+| **application** | 유스케이스(UseCase) 단위로 비즈니스 로직의 흐름을 제어하는 계층입니다.도메인 로직을 직접 수행하지 않고, 도메인 계층의 기능을 조합하거나 트랜잭션 단위를 관리합니다. |
+| ├── **adapter** | `infrastructure`와 `application`을 연결하는 인터페이스(Port) 정의부입니다.Repository, Kafka 등 외부 기술과의 의존성을 추상화합니다. |
+| ├── **service** | 실제 도메인 로직을 실행하는 애플리케이션 내부의 구현체입니다. |
+| └── **usecase** | 한 기능 단위(회원가입, 포인트 적립 등)를 명시적으로 표현하여, 기능 단위 테스트 및 유지보수를 쉽게 만듭니다. |
+| **infrastructure** | 외부 기술(JPA, Redis, Kafka 등)에 대한 구현체(Adaptor)를 모아둡니다.`UserJpaRepository`는 Spring Data JPA 인터페이스를 상속받으며, `UserRepository`가 이를 감싼 형태로 구현됩니다. |
