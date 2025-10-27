@@ -1,4 +1,4 @@
-package com.sadik.pointapi.config
+package com.sadik.pointapi.common.config
 
 import com.sadik.pointapi.point.application.dto.PointEventDto
 import org.apache.kafka.clients.producer.ProducerConfig

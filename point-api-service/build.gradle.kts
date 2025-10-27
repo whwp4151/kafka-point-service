@@ -7,6 +7,10 @@ bootJar.enabled = false
 jar.enabled = true
 
 dependencies {
+    // DB
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("com.h2database:h2")
+
     // kafka
     implementation("org.springframework.kafka:spring-kafka")
 

@@ -1,4 +1,4 @@
-package com.sadik.pointapi.config
+package com.sadik.pointapi.common.config
 
 import org.apache.kafka.clients.admin.AdminClient
 import org.apache.kafka.clients.admin.AdminClientConfig
