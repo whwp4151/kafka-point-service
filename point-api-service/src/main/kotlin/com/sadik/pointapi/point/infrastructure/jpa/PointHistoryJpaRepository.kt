@@ -1,4 +1,4 @@
-package com.sadik.pointapi.point.infrastructure
+package com.sadik.pointapi.point.infrastructure.jpa
 
 import org.springframework.data.jpa.repository.JpaRepository
 

@@ -14,6 +14,7 @@ import java.util.UUID
 
 @Entity
 class PointHistoryEntity (
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

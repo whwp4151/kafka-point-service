@@ -25,7 +25,6 @@
 
 - **Point API Service (BFF)**
     - 사용자 요청을 수신하고, 비동기 이벤트를 발행
-    - 요청 즉시 `HTTP 202 Accepted` 응답 반환
     - 사용자별 순서 보장을 위해 `userId`를 Partition Key로 설정
 - **Point Connector Service**
     - Kafka 이벤트를 구독하고 실제 포인트 적립/차감 처리

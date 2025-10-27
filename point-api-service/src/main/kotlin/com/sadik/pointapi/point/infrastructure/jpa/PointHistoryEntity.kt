@@ -1,4 +1,4 @@
-package com.sadik.pointapi.point.infrastructure
+package com.sadik.pointapi.point.infrastructure.jpa
 
 import com.sadik.pointapi.common.jpa.BaseEntity
 import com.sadik.pointapi.point.application.type.PointActionType

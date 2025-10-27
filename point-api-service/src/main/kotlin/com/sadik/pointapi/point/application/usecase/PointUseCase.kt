@@ -3,5 +3,5 @@ package com.sadik.pointapi.point.application.usecase
 import com.sadik.pointapi.point.application.type.PointType
 
 interface PointUseCase {
-    fun addPoint(userId: Long, pointType: PointType)
+    fun addPoint(userId: Long, pointType: PointType): Boolean
 }
