@@ -9,10 +9,10 @@ spring:
     name: point-connector-service
 
   datasource:
-    url: jdbc:h2:mem:point
-    driverClassName: org.h2.Driver
-    username: dev
-    password: password
+    url: jdbc:h2:file:~/pointdb;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
 
   h2:
     console:
@@ -21,7 +21,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true

@@ -1,6 +1,7 @@
 package com.sadik.pointapi.point.application.service
 
 import com.github.f4b6a3.uuid.UuidCreator
+import com.sadik.pointapi.point.application.adapter.EventPublisher
 import com.sadik.pointapi.point.application.adapter.PointAdapter
 import com.sadik.pointapi.point.application.dto.PointEarnedEvent
 import com.sadik.pointapi.point.application.dto.PointHistoryDto
@@ -23,7 +24,7 @@ import java.time.LocalDate
 class PointService(
     private val pointAdapter: PointAdapter,
     private val condList: List<IPointCondition>,
-    private val kafkaTemplate: KafkaTemplate<String, PointEarnedEvent>
+    private val eventPublisher: EventPublisher
 ) : PointUseCase {
 
     private val log = LoggerFactory.getLogger(this::class.java)
@@ -72,8 +73,8 @@ class PointService(
             point = point,
             pointType = pointType
         )
-        kafkaTemplate.send("point-earned-topic", userId.toString(), event)
-        log.info("[kafka] sent PointEarnedEvent: {}", event)
+        eventPublisher.addPoint(event)
+        log.info("[event] sent PointEarnedEvent: {}", event)
 
         log.info("[point] + add:$pointType, point:$point, userId:$userId, point-PK:$pointNo");
         return true

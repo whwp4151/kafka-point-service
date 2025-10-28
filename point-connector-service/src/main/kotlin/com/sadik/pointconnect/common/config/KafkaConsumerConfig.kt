@@ -1,8 +1,6 @@
 package com.sadik.pointconnect.common.config
 
-import com.sadik.pointconnect.point.application.dto.PointEventDto
-import org.apache.kafka.clients.admin.AdminClient
-import org.apache.kafka.clients.admin.AdminClientConfig
+import com.sadik.pointconnect.point.application.dto.PointEarnedEvent
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.springframework.context.annotation.Bean
@@ -18,30 +16,26 @@ import org.springframework.kafka.support.serializer.JsonDeserializer
 class KafkaConsumerConfig {
 
     @Bean
-    fun consumerFactory(): ConsumerFactory<String, PointEventDto> {
+    fun consumerFactory(): ConsumerFactory<String, PointEarnedEvent> {
         val config = mapOf(
             ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to "localhost:29092",
-            ConsumerConfig.GROUP_ID_CONFIG to "point-connect-group",
+            ConsumerConfig.GROUP_ID_CONFIG to "point-connect-service",
             ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
             ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to JsonDeserializer::class.java,
             JsonDeserializer.TRUSTED_PACKAGES to "*"
         )
-        return DefaultKafkaConsumerFactory(config)
+        return DefaultKafkaConsumerFactory(
+            config,
+            StringDeserializer(),
+            JsonDeserializer(PointEarnedEvent::class.java, false)
+        )
     }
 
     @Bean
-    fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, PointEventDto> {
-        val factory = ConcurrentKafkaListenerContainerFactory<String, PointEventDto>()
+    fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, PointEarnedEvent> {
+        val factory = ConcurrentKafkaListenerContainerFactory<String, PointEarnedEvent>()
         factory.consumerFactory = consumerFactory()
         return factory
-    }
-
-    @Bean
-    fun kafkaAdminClient(): AdminClient {
-        val config = mapOf(
-            AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG to "localhost:29092"
-        )
-        return AdminClient.create(config)
     }
 
 }

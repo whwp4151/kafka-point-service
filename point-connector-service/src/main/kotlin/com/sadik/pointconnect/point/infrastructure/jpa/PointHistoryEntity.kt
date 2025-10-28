@@ -14,7 +14,6 @@ import java.util.UUID
 
 @Entity
 class PointHistoryEntity (
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -35,6 +34,15 @@ class PointHistoryEntity (
 
     val regDate: LocalDateTime = LocalDateTime.now(),
 
-    val processedAt: LocalDateTime? = null // 외부 시스템 연동 시각
+    processedAt: LocalDateTime? = null
 
-) : BaseEntity()
+) : BaseEntity() {
+
+    var processedAt: LocalDateTime? = processedAt
+        protected set
+
+    fun processe(processedAt: LocalDateTime) {
+        this.processedAt = processedAt
+    }
+
+}
