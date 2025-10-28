@@ -38,7 +38,16 @@ class StepCountPointCondition : IPointCondition {
         userId: Long,
         pointUseCase: PointUseCase
     ): PointState {
-        TODO("Not yet implemented")
+        var state : PointState.State
+        if (!checkExecuteCond()) {
+            state = PointState.State.None
+        } else if (!checkLimitCond(userId, pointUseCase)) {
+            state = PointState.State.PointPaid
+        } else {
+            state = PointState.State.ConditionCompleted
+        }
+
+        return PointState(pointType.point, pointType, state)
     }
 
     // 발동(실행) 조건

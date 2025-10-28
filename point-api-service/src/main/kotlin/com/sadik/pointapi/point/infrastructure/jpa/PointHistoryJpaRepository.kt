@@ -23,4 +23,6 @@ interface PointHistoryJpaRepository: JpaRepository<PointHistoryEntity, Long> {
         @Param("end") end: LocalDateTime
     ): List<PointHistoryEntity>
 
+    fun findByUserIdOrderByIdDesc(userId: Long): List<PointHistoryEntity>
+
 }

@@ -47,13 +47,6 @@
 
 ---
 
-### `/api/quiz/answer`
-
-- 퀴즈 정답 제출 API
-- 정답일 경우 포인트 적립 이벤트 발행 (`POINT_REQUEST_TOPIC`)
-
----
-
 ### `/api/point/earn`
 
 - 걸음수 미션 달성 시 호출

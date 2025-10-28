@@ -7,4 +7,5 @@ import com.sadik.pointapi.point.application.dto.query.PointHistoryQuery
 interface PointAdapter {
     fun insertPointHistory(command: PointHistoryCommand): Long
     fun getPointHistory(query: PointHistoryQuery): List<PointHistoryDto>
+    fun findByUserId(userId: Long): List<PointHistoryDto>
 }

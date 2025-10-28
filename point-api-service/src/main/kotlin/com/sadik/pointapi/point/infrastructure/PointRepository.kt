@@ -7,6 +7,7 @@ import com.sadik.pointapi.point.application.dto.query.PointHistoryQuery
 import com.sadik.pointapi.point.infrastructure.jpa.PointHistoryEntity
 import com.sadik.pointapi.point.infrastructure.jpa.PointHistoryJpaRepository
 import org.springframework.stereotype.Repository
+import kotlin.collections.map
 
 @Repository
 class PointRepository(
@@ -26,6 +27,11 @@ class PointRepository(
             query.end
         )
 
+        return result.map { PointHistoryDto.of(it) }
+    }
+
+    override fun findByUserId(userId: Long): List<PointHistoryDto> {
+        val result = pointHistoryJpaRepository.findByUserIdOrderByIdDesc(userId)
         return result.map { PointHistoryDto.of(it) }
     }
 
