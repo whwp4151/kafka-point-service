@@ -1,6 +1,7 @@
 package com.sadik.pointapi.point.infrastructure.jpa
 
 import com.sadik.pointapi.common.jpa.BaseEntity
+import com.sadik.pointapi.point.application.dto.command.PointHistoryCommand
 import com.sadik.pointapi.point.application.type.PointActionType
 import com.sadik.pointapi.point.application.type.PointType
 import jakarta.persistence.Entity
@@ -34,6 +35,28 @@ class PointHistoryEntity (
 
     val regDate: LocalDateTime = LocalDateTime.now(),
 
-    val processedAt: LocalDateTime? = null // 외부 시스템 연동 시각
+    processedAt: LocalDateTime? = null
 
-) : BaseEntity()
+) : BaseEntity() {
+
+    var processedAt: LocalDateTime? = processedAt
+        protected set
+
+    fun processed(processedAt: LocalDateTime) {
+        this.processedAt = processedAt
+    }
+
+    companion object {
+        fun fromCommand(command: PointHistoryCommand): PointHistoryEntity {
+            return PointHistoryEntity(
+                uuid = command.uuid,
+                userId = command.userId,
+                point = command.point,
+                pointType = command.pointType,
+                actionType = command.actionType,
+                bigo = command.bigo
+            )
+        }
+    }
+
+}

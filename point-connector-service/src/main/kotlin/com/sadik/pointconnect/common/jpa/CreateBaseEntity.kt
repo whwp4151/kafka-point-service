@@ -13,11 +13,11 @@ import java.time.LocalDateTime
 abstract class CreateBaseEntity {
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    open var createdAt: LocalDateTime? = null
+    var createdAt: LocalDateTime? = null
         protected set
 
     @CreatedBy
     @Column(updatable = false, length = 100)
-    open var createdBy: String? = null
+    var createdBy: String? = null
         protected set
 }

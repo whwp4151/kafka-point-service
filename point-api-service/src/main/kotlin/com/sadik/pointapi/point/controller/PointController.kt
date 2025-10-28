@@ -24,8 +24,7 @@ class PointController(
 
         val result = pointUseCase.addPoint(userDto.id, request.pointType)
 
-        // TODO
-        return ResponseEntity.ok(ApiResponse.success(data = true))
+        return ResponseEntity.ok(ApiResponse.success(data = result))
     }
 
 }

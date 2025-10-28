@@ -15,21 +15,21 @@ import java.time.LocalDateTime
 abstract class BaseEntity {
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    open var createdAt: LocalDateTime? = null
+    var createdAt: LocalDateTime? = null
         protected set
 
     @CreatedBy
     @Column(updatable = false, length = 100)
-    open var createdBy: String? = null
+    var createdBy: String? = null
         protected set
 
     @LastModifiedDate
     @Column(nullable = false)
-    open var updatedAt: LocalDateTime? = null
+    var updatedAt: LocalDateTime? = null
         protected set
 
     @LastModifiedBy
     @Column(length = 100)
-    open var updatedBy: String? = null
+    var updatedBy: String? = null
         protected set
 }

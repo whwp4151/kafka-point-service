@@ -1,12 +1,13 @@
 package com.sadik.pointapi.point.application.service.condition.impl
 
+import com.sadik.pointapi.point.application.dto.PointHistoryDto
 import com.sadik.pointapi.point.application.dto.PointState
-import com.sadik.pointapi.point.application.service.PointService
 import com.sadik.pointapi.point.application.service.condition.IPointCondition
 import com.sadik.pointapi.point.application.type.PointType
-import com.sadik.pointapi.point.infrastructure.jpa.PointHistoryEntity
+import com.sadik.pointapi.point.application.usecase.PointUseCase
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+import java.time.DayOfWeek
 import java.time.LocalDate
 
 @Component
@@ -19,10 +20,10 @@ class StepCountPointCondition : IPointCondition {
 
     override fun calcPoint(
         userId: Long,
-        pointService: PointService
+        pointUseCase: PointUseCase
     ): Long {
         // 발동, 제한 조건을 모두 만족했느냐?
-        if (checkExecuteCond() && checkLimitCond()) {
+        if (checkExecuteCond() && checkLimitCond(userId, pointUseCase)) {
             return pointType.point
         }
 
@@ -35,7 +36,7 @@ class StepCountPointCondition : IPointCondition {
 
     override fun getPointState(
         userId: Long,
-        pointService: PointService
+        pointUseCase: PointUseCase
     ): PointState {
         TODO("Not yet implemented")
     }
@@ -55,13 +56,13 @@ class StepCountPointCondition : IPointCondition {
     }
 
     // 제한 조건
-    private fun checkLimitCond(): Boolean {
+    private fun checkLimitCond(userId: Long, pointUseCase: PointUseCase): Boolean {
         // 제한 조건, 매주 한번
         val now = LocalDate.now()
+        val begin = now.with(DayOfWeek.MONDAY);
 
-        // TODO
-        val points: List<PointHistoryEntity> = emptyList()
-        if (points.size > 0) {
+        val points: List<PointHistoryDto> = pointUseCase.getPointHistory(userId, pointType, begin, now)
+        if (points.isNotEmpty()) {
             log.info("[point] deny:{}, already paid. point-uuid:{}", pointType, points.get(0).uuid)
             return false // 이미 발급
         }
