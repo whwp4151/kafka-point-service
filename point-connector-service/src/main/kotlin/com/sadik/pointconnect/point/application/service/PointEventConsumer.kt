@@ -4,6 +4,7 @@ import com.sadik.pointconnect.point.application.adapter.PointAdapter
 import com.sadik.pointconnect.point.application.dto.PointEarnedEvent
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener
+import org.springframework.kafka.support.Acknowledgment
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
@@ -14,11 +15,8 @@ class PointEventConsumer(
 
     private val log = LoggerFactory.getLogger(this::class.java)
 
-    @KafkaListener(
-        topics = ["point-earned-topic"],
-        groupId = "point-connect-service"
-    )
-    fun consume(event: PointEarnedEvent) {
+    @KafkaListener(topics = ["point-earned-topic"], groupId = "point-connect-service")
+    fun consume(event: PointEarnedEvent, ack: Acknowledgment) {
         try {
             // 로그 확인
             log.info("[KafkaConsumer] Received event: $event")
@@ -26,11 +24,17 @@ class PointEventConsumer(
             // DB에 update
             pointAdapter.processPoint(event.uuid, LocalDateTime.now())
 
+            ack.acknowledge()
             log.info("[KafkaConsumer] PointHistory saved for userId=${event.userId}")
         } catch (e: Exception) {
             log.error("[KafkaConsumer] Failed to process event: $event", e)
             // 실패 처리: DLQ 전송, 재시도 등 로직 추가 가능
         }
+    }
+
+    @KafkaListener(topics = ["point-earned-topic.DLT"], groupId = "point-earned-dlq")
+    fun handleDlq(event: PointEarnedEvent) {
+        log.error("🚨 DLQ message received: $event")
     }
 
 }

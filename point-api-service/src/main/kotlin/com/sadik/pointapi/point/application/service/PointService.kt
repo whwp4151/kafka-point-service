@@ -15,7 +15,6 @@ import com.sadik.pointapi.point.application.type.PointType
 import com.sadik.pointapi.point.application.usecase.PointUseCase
 import jakarta.annotation.PostConstruct
 import org.slf4j.LoggerFactory
-import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
@@ -73,7 +72,7 @@ class PointService(
             point = point,
             pointType = pointType
         )
-        eventPublisher.addPoint(event)
+        eventPublisher.addPointAfterCommit(event)
         log.info("[event] sent PointEarnedEvent: {}", event)
 
         log.info("[point] + add:$pointType, point:$point, userId:$userId, point-PK:$pointNo");
