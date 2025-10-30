@@ -20,23 +20,23 @@ class KafkaProducerConfig {
             ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
             ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to JsonSerializer::class.java,
 
-            // ✅ 멱등성 보장 (중복 전송 방지)
+            // 멱등성 보장 (중복 전송 방지)
             ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG to true,
 
-            // ✅ acks=all: 브로커 리더 + 팔로워 모두 쓰기 완료시 ack
+            // acks=all: 브로커 리더 + 팔로워 모두 쓰기 완료시 ack
             ProducerConfig.ACKS_CONFIG to "all",
 
-            // ✅ 재시도 횟수 (기본 2147483647)
+            // 재시도 횟수 (기본 2147483647)
             ProducerConfig.RETRIES_CONFIG to Int.MAX_VALUE,
 
-            // ✅ 브로커에 동시에 보낼 수 있는 요청 수 제한
+            // 브로커에 동시에 보낼 수 있는 요청 수 제한
             ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION to 5,
 
-            // ✅ 배치 전송으로 성능 개선 (지연 허용시)
+            // 배치 전송으로 성능 개선 (지연 허용시)
             ProducerConfig.LINGER_MS_CONFIG to 10,
             ProducerConfig.BATCH_SIZE_CONFIG to 32_768,
 
-            // ✅ 타임아웃
+            // 타임아웃
             ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG to 30_000,
             ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG to 120_000
         )

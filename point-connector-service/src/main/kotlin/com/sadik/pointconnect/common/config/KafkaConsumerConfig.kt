@@ -32,14 +32,14 @@ class KafkaConsumerConfig {
             ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
             ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to JsonDeserializer::class.java,
 
-            // ✅ 오프셋 자동 커밋 방지 (수동 커밋으로 제어)
+            // 오프셋 자동 커밋 방지 (수동 커밋으로 제어)
             ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG to false,
 
-            // ✅ 메시지 처리 실패 시, 재시작 간격
+            // 메시지 처리 실패 시, 재시작 간격
             ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG to 30_000,
             ConsumerConfig.MAX_POLL_RECORDS_CONFIG to 10,
 
-            // ✅ 중복 데이터 허용 최소화
+            // 중복 데이터 허용 최소화
             ConsumerConfig.ISOLATION_LEVEL_CONFIG to "read_committed"
         )
 
@@ -54,7 +54,7 @@ class KafkaConsumerConfig {
         val factory = ConcurrentKafkaListenerContainerFactory<String, PointEarnedEvent>()
         factory.consumerFactory = consumerFactory()
 
-        // ✅ 예외 발생 시 DLQ로 전송
+        // 예외 발생 시 DLQ로 전송
         factory.setCommonErrorHandler(
             DefaultErrorHandler(
                 DeadLetterPublishingRecoverer(kafkaTemplate()),  // DLQ 발행기
@@ -62,7 +62,7 @@ class KafkaConsumerConfig {
             )
         )
 
-        // ✅ 오프셋 커밋 수동
+        // 오프셋 커밋 수동
         factory.containerProperties.ackMode = ContainerProperties.AckMode.MANUAL
 
         return factory
